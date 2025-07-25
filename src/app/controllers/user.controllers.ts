@@ -8,7 +8,24 @@ export const usersRoutes = express.Router();
 usersRoutes.post("/create-user", async (req: Request, res: Response) => {
 
     const body = req.body;
+    // console.log("User created:", user);
+    
+    const existingUser = await User.findOne({ email: body.email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists"
+      });
+    }
+    
     const user = await User.create(body);
+
+  if (!user) {
+    return res.status(500).json({
+      success: false,
+      message: "User creation failed"
+    });
+  }
 
   res.status(201).json({
     success: true,
