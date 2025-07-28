@@ -12,6 +12,11 @@ const createUserZodSchema = z.object({
   email: z.string(),
   password: z.string().min(6),
   role: z.string().optional().default("user"),
+  address: z.object({
+    street: z.string().optional(),
+    city: z.string().optional(),
+    zipCode: z.number().optional(),
+  }).optional(),
   createdAt: z.date().optional().default(new Date()),
 });
 

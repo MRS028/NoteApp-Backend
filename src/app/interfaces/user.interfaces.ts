@@ -1,3 +1,9 @@
+
+export interface IAddress {
+  street: string;
+  city: string;
+  zipCode: number;
+}   
 export interface IUser {
   id: string;
   firstName: string;
@@ -8,10 +14,6 @@ export interface IUser {
   role: 'user' | 'admin';
   createdAt: Date;
   updatedAt?: Date;
-  address?: {
-    street: string;
-    city: string;
-    zipCode: number;
-  };
+  address?: IAddress;
 
 }
