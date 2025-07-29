@@ -1,26 +1,26 @@
 import express from "express";
 import { Request, Response } from "express";
 import { User } from "../models/user.models";
-import { z } from "zod";
+// import { z } from "zod";
 
 export const usersRoutes = express.Router();
 
-const createUserZodSchema = z.object({
-  firstName: z.string().min(4).max(20),
-  lastName: z.string().min(4).max(20),
-  age: z.number().min(16).max(80),
-  email: z.string(),
-  password: z.string().min(6),
-  role: z.string().optional().default("user"),
-  address: z
-    .object({
-      street: z.string().optional(),
-      city: z.string().optional(),
-      zipCode: z.number().optional(),
-    })
-    .optional(),
-  createdAt: z.date().optional().default(new Date()),
-});
+// const createUserZodSchema = z.object({
+//   firstName: z.string().min(4).max(20),
+//   lastName: z.string().min(4).max(20),
+//   age: z.number().min(16).max(80),
+//   email: z.string(),
+//   password: z.string().min(6),
+//   role: z.string().optional().default("user"),
+//   address: z
+//     .object({
+//       street: z.string().optional(),
+//       city: z.string().optional(),
+//       zipCode: z.number().optional(),
+//     })
+//     .optional(),
+//   createdAt: z.date().optional().default(new Date()),
+// });
 
 //create a user
 usersRoutes.post("/create-user", async (req: Request, res: Response) => {
@@ -55,11 +55,11 @@ usersRoutes.post("/create-user", async (req: Request, res: Response) => {
       message: "User created successfully",
       user,
     });
-  } catch (error: any) {
+  } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Invalid input data",
-      error: error.errors ? error.errors : error.message,
+      message: `Invalid input data ${error}`,
+      // error: error.errors ? error.errors : error.message,
     });
   }
 });
